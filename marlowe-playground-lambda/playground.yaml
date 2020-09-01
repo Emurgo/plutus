@@ -1,0 +1,16 @@
+auth:
+  # Your github OAuth App Credentials.
+  github-client-id: "c8f8532635e73f26359d"
+  github-client-secret: "0aa76fcd1efa8f2a98eb9d57b7580bf4eaa88e5c"
+
+  # You can generate a good signature by running `openssl rand -hex 40` and pasting the result here:
+  jwt-signature: "6831d81a7c8306344247d46a0b5833b31e5526bdb8f214a66785fb725640404da15b5ed62a5a71d9"
+
+  # This should match the client-facing schema/host/port.
+  redirect-url: https://localhost:8009
+
+marlowe:
+  # The API Gateway url to trigger the marlowe symbolic lambda
+  symbolic-url: "https://kqxyaaumqg.execute-api.eu-west-1.amazonaws.com/david"
+  api-key: "5ZqUSYUDkQ8t4BgSi0koF3fpN6cUyaEi5UfQqHJp"
+  callback-url: "https://david.marlowe.iohkdev.io/machine-a/api"

@@ -14,9 +14,8 @@ let
     unset AWS_SECRET_ACCESS_KEY
     unset AWS_ACCESS_KEY_ID
 
-    result=$(${awscli}/bin/aws sts get-session-token --serial-number arn:aws:iam::454236594309:mfa/$1 --output text --duration-seconds 86400 --token-code $2 \
+    $(${awscli}/bin/aws sts get-session-token --serial-number arn:aws:iam::454236594309:mfa/$1 --output text --duration-seconds 86400 --token-code $2 \
             | awk '{printf("export AWS_ACCESS_KEY_ID=\"%s\"\nexport AWS_SECRET_ACCESS_KEY=\"%s\"\nexport AWS_SESSION_TOKEN=\"%s\"\n",$2,$4,$5)}')
-    eval $result
       '';
 
   terraform-locals = env:
