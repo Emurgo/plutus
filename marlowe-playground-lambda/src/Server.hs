@@ -14,7 +14,7 @@ module Server where
 
 import API (API)
 import qualified Auth
-import Auth.Types (OAuthClientId(OAuthClientId), OAuthClientSecret(OAuthClientSecret))
+import Auth.Types (OAuthClientId (OAuthClientId), OAuthClientSecret (OAuthClientSecret))
 import Aws.Lambda
 import Aws.Lambda.Wai (WaiHandler, waiHandler)
 import Control.Monad.Except (ExceptT)
@@ -67,6 +67,7 @@ app handlers =
 
 data AppConfig = AppConfig {authConfig :: Auth.Config}
 
+-- FIXME: This needs to be loaded from AWS Secrets Store
 initializeContext :: IO AppConfig
 initializeContext = do
   let authConfig =
