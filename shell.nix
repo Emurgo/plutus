@@ -12,6 +12,7 @@ in haskell.packages.shellFor {
     pkgs.ghcid
     pkgs.git
     pkgs.cacert
+    pkgs.niv
     pkgs.nodejs
     pkgs.yarn
     pkgs.zlib
