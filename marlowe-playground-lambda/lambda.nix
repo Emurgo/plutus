@@ -11,7 +11,7 @@
 # We can then pass the `-optl=-static` flag and statically link this as it does not use TH.
 { pkgs, lib, haskellPackages }:
 let
-  ghc = haskellPackages.ghcWithPackages (p: [ p.marlowe-symbolic ]);
+  ghc = haskellPackages.ghcWithPackages (p: [ p.marlowe-playground-lambda ]);
   main = pkgs.writeText "app.hs"
               ''
               module Main where
