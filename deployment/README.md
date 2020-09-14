@@ -17,7 +17,7 @@ A website is served from AWS API Gateway which will proxy to the following parts
 
 ### Getting Started
 
-If you are using OSX then you cannot build the lambdas locally, therefore if you want to update the infrastructure you will need to build the lambdas on a linux machine and then copy them to a location on your machine. Then you can set the env var `export TF_VAR_symbolic_lambda_file=/path/to/marlowe-symbolic.zip`.
+If you are using OSX then you cannot build the lambdas locally, therefore if you want to update the infrastructure you will need to build the lambdas on a linux machine and then copy them to a location on your machine. Then you can set the env vars `export TF_VAR_symbolic_lambda_file=/path/to/marlowe-symbolic.zip` and `export TF_VAR_playground_lambda_file=/path/to/marlowe-playground-lambda.zip`
 
 If you have not setup AWS authentication but you have enabled MFA then you can run `$(nix-build -A deployment.david.getCreds) user.name 123456` (where 123456 is the current MFA code) before you run any other command to setup temporary credentials that are valid for 24 hours.
 

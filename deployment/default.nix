@@ -1,4 +1,4 @@
-{ pkgs, marlowe-playground, marlowe-symbolic-lambda }:
+{ pkgs, marlowe-playground, marlowe-symbolic-lambda, marlowe-playground-lambda }:
 with pkgs;
 let
   # 20.03 version of terraform is broken on some versions of OSX so I have copied the last 0_12 version from nixpkgs
@@ -38,7 +38,8 @@ let
         ""
       else
         ''
-          symbolic_lambda_file="${marlowe-symbolic-lambda}/marlowe-symbolic.zip"'');
+          symbolic_lambda_file="${marlowe-symbolic-lambda}/marlowe-symbolic.zip"
+          playground_lambda_file="${marlowe-playground-lambda}/marlowe-playground-lambda.zip"'');
     };
 
   runTerraform = env: region:

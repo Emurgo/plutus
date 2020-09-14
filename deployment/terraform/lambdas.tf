@@ -73,3 +73,26 @@ resource "aws_lambda_function" "marlowe_symbolic" {
     }
   }
 }
+
+resource "aws_lambda_function" "marlowe_playground" {
+  function_name = "marlowe_playground_${var.env}"
+  role          = "${aws_iam_role.marlowe_symbolic_lambda.arn}"
+  handler       = "src/App.handler"
+
+  runtime = "provided"
+
+  # The lambda zip needs to be built and placed on your local filesystem
+  # TODO: This is only a temporary requirement and will be moved to the CD server soon
+  filename = "${var.playground_lambda_file}"
+  source_code_hash = filebase64sha256(var.playground_lambda_file)
+  
+  memory_size = 3008
+  timeout = 120
+  publish = true
+
+  environment {
+    variables = {
+      PATH = "/usr/local/bin:/usr/bin/:/bin:/opt/bin:."
+    }
+  }
+}

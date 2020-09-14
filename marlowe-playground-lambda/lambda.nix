@@ -48,8 +48,8 @@ in
                      -optl=-L${lib.getLib numactl}/lib
       '';
     installPhase = ''
-      zip -j marlowe-symbolic.zip $out/bin/bootstrap
-      mv marlowe-symbolic.zip $out/marlowe-symbolic.zip
+      zip -j marlowe-playground-lambda.zip $out/bin/bootstrap
+      mv marlowe-playground-lambda.zip $out/marlowe-playground-lambda.zip
     '';
 
     # Marlowe lambda builds with musl, and only on linux

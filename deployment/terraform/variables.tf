@@ -175,3 +175,6 @@ variable "azs" {
 
 variable "symbolic_lambda_file" {
 }
+
+variable "playground_lambda_file" {
+}
