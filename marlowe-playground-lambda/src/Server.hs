@@ -68,15 +68,18 @@ app handlers =
 
 data AppConfig = AppConfig {authConfig :: Auth.Config}
 
--- FIXME: This needs to be loaded from AWS Secrets Store
 initializeContext :: IO AppConfig
 initializeContext = do
+  githubClientId <- getEnv "GITHUB_CLIENT_ID"
+  githubClientSecret <- getEnv "GITHUB_CLIENT_SECRET"
+  jwtSignature <- getEnv "JWT_SIGNATURE"
+  redirectURL <- getEnv "GITHUB_REDIRECT_URL"
   let authConfig =
         Auth.Config
-          { _configJWTSignature = JWT.hmacSecret "",
-            _configRedirectUrl = "",
-            _configGithubClientId = OAuthClientId "",
-            _configGithubClientSecret = OAuthClientSecret ""
+          { _configJWTSignature = JWT.hmacSecret jwtSignature,
+            _configRedirectUrl = redirectURL,
+            _configGithubClientId = OAuthClientId githubClientId,
+            _configGithubClientSecret = OAuthClientSecret githubClientSecret
           }
   pure $ AppConfig authConfig
 
