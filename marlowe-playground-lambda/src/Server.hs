@@ -31,6 +31,7 @@ import Language.Marlowe.ACTUS.Generator (genFsContract, genStaticContract)
 import Language.Marlowe.Pretty (pretty)
 import Network.Wai.Middleware.Cors (cors, corsRequestHeaders, simpleCorsResourcePolicy)
 import Servant (Application, Handler (Handler), Server, ServerError, hoistServer, serve, (:<|>) ((:<|>)), (:>))
+import System.Environment (getEnv)
 import qualified Web.JWT as JWT
 
 genActusContract :: ContractTerms -> Handler String
