@@ -26,6 +26,7 @@ import Data.Aeson (ToJSON, eitherDecode, encode)
 import Data.IORef (readIORef)
 import Data.Proxy (Proxy (Proxy))
 import Data.Text (Text)
+import qualified Data.Text as Text
 import Language.Marlowe.ACTUS.Definitions.ContractTerms (ContractTerms)
 import Language.Marlowe.ACTUS.Generator (genFsContract, genStaticContract)
 import Language.Marlowe.Pretty (pretty)
@@ -71,10 +72,10 @@ data AppConfig = AppConfig {authConfig :: Auth.Config}
 
 initializeContext :: IO AppConfig
 initializeContext = do
-  githubClientId <- getEnv "GITHUB_CLIENT_ID"
-  githubClientSecret <- getEnv "GITHUB_CLIENT_SECRET"
-  jwtSignature <- getEnv "JWT_SIGNATURE"
-  redirectURL <- getEnv "GITHUB_REDIRECT_URL"
+  githubClientId <- Text.pack <$> getEnv "GITHUB_CLIENT_ID"
+  githubClientSecret <- Text.pack <$> getEnv "GITHUB_CLIENT_SECRET"
+  jwtSignature <- Text.pack <$> getEnv "JWT_SIGNATURE"
+  redirectURL <- Text.pack <$> getEnv "GITHUB_REDIRECT_URL"
   let authConfig =
         Auth.Config
           { _configJWTSignature = JWT.hmacSecret jwtSignature,
