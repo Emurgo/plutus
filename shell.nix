@@ -31,6 +31,7 @@ in haskell.packages.shellFor {
     pkgs.terraform_0_12
     pkgs.awscli
     pkgs.aws_shell
+    pkgs.pass
 
     # Extra dev packages acquired from elsewhere
     dev.packages.cabal-install
@@ -49,4 +50,6 @@ in haskell.packages.shellFor {
     # does compile, so we can remove it when we upgrade to 20.09.
     pkgs.rPackages.plotly # for generating R plots locally
   ]);
+  # we have a local passwords store that we use for deployments etc.
+  PASSWORD_STORE_DIR = toString ./. + "/secrets";
 }

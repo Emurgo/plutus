@@ -35,6 +35,9 @@ let
         env="${env}"
         aws_region="${region}"
       '' + (if pkgs.stdenv.isDarwin then
+      # On OSX you need to set the env vars with the locations of the lambda zip files e.g.
+      # export TF_VAR_symbolic_lambda_file=/path/to/marlowe-symbolic.zip
+      # export TF_VAR_playground_lambda_file=/path/to/marlowe-playground-lambda.zip
         ""
       else
         ''
@@ -49,6 +52,7 @@ let
       ln -s ${terraform-locals env}/* $tmp_dir
       ln -s ${terraform-vars env region}/* $tmp_dir
       cd $tmp_dir
+      export TF_VAR_marlowe_github_client_id=$(pass ${env}/marlowe/githubClientId)
       ${terraform}/bin/terraform init
       ${terraform}/bin/terraform workspace select ${env}
       ${terraform}/bin/terraform apply -var-file=${env}.tfvars
@@ -74,6 +78,7 @@ let
       cd $tmp_dir
 
       echo "apply terraform"
+      export TF_VAR_marlowe_github_client_id=$(pass ${env}/marlowe/githubClientId)
       ${terraform}/bin/terraform init
       ${terraform}/bin/terraform workspace select ${env}
       ${terraform}/bin/terraform apply -var-file=${env}.tfvars

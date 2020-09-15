@@ -93,6 +93,7 @@ resource "aws_lambda_function" "marlowe_playground" {
   environment {
     variables = {
       PATH = "/usr/local/bin:/usr/bin/:/bin:/opt/bin:."
+      GITHUB_CLIENT_ID = var.marlowe_github_client_id
     }
   }
 }

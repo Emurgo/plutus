@@ -178,3 +178,6 @@ variable "symbolic_lambda_file" {
 
 variable "playground_lambda_file" {
 }
+
+variable "marlowe_github_client_id" {
+}

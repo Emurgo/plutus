@@ -30,6 +30,8 @@ The infrastructure is based around multiple environments, for example `alpha`, `
 * `deployment.env.terraform-locals` will produce `generated.tf.json` which contains locals such as `env`
 * `deployment.env.terraform-vars` will produce `env.tfvars` which contains variables such as `symbolic_lambda_file` if you are not on OSX
 
+The scripts require some secrets which are stored encrypted in this repository. To access them you will need to provide your gpg public key to someone who already has access to the secrets.
+
 ## Legacy Infrastructure
 
 The legacy infrastructure is comprised of 2 parts, terraform and nixops:
