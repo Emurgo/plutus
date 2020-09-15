@@ -77,7 +77,7 @@ resource "aws_lambda_function" "marlowe_symbolic" {
 resource "aws_lambda_function" "marlowe_playground" {
   function_name = "marlowe_playground_${var.env}"
   role          = "${aws_iam_role.marlowe_symbolic_lambda.arn}"
-  handler       = "src/App.handler"
+  handler       = "src/Server.handler"
 
   runtime = "provided"
 

@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
@@ -29,7 +30,7 @@ import Language.Marlowe.ACTUS.Definitions.ContractTerms (ContractTerms)
 import Language.Marlowe.ACTUS.Generator (genFsContract, genStaticContract)
 import Language.Marlowe.Pretty (pretty)
 import Network.Wai.Middleware.Cors (cors, corsRequestHeaders, simpleCorsResourcePolicy)
-import Servant (Application, Handler (Handler), Server, ServerError, hoistServer, serve, (:<|>) ((:<|>)))
+import Servant (Application, Handler (Handler), Server, ServerError, hoistServer, serve, (:<|>) ((:<|>)), (:>))
 import qualified Web.JWT as JWT
 
 genActusContract :: ContractTerms -> Handler String
@@ -48,7 +49,7 @@ liftedAuthServer githubEndpoints config =
     liftAuthToHandler =
       Handler . runStderrLoggingT . flip runReaderT (githubEndpoints, config)
 
-type Web = API :<|> Auth.API
+type Web = "api" :> (API :<|> Auth.API)
 
 mkHandlers :: (MonadIO m) => AppConfig -> m (Server Web)
 mkHandlers AppConfig {..} = do

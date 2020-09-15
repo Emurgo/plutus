@@ -19,7 +19,6 @@ let
               main = Server.main
               '';
 
-  z3 = pkgs.z3.override { staticbin = true; };
   openssl = (pkgs.openssl.override { static = true; }).overrideAttrs(old : {
     # "no-shared" per https://github.com/NixOS/nixpkgs/pull/77542, should be able to
     # get rid of this when we update nixpkgs
@@ -32,7 +31,7 @@ let
   numactl = pkgs.numactl.overrideAttrs (_: { configureFlags = "--enable-static"; });
 in
   pkgs.stdenv.mkDerivation {
-    name = "marlowe-symbolic-lambda";
+    name = "marlowe-playground-lambda";
     nativeBuildInputs = [ pkgs.zip ];
     unpackPhase = "true";
     buildPhase =
