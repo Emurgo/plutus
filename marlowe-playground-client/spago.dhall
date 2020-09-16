@@ -4,7 +4,8 @@ You can edit this file as you like.
 -}
 { name = "marlowe-playground-client"
 , dependencies =
-  [ "avar"
+  [ "aff-promise"
+  , "avar"
   , "bigints"
   , "concurrent-queues"
   , "console"
