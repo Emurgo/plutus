@@ -88,6 +88,23 @@ resource "aws_lb_listener" "redirect" {
   }
 }
 
+resource "aws_alb_listener_rule" "runghc" {
+  depends_on   = [aws_alb_target_group.webghc]
+  listener_arn = aws_lb_listener.redirect.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.webghc.id
+  }
+
+  condition {
+    path_pattern {
+      values = ["/runghc"]
+    }
+  }
+}
+
 resource "aws_alb_listener" "playground" {
   load_balancer_arn = aws_alb.plutus.arn
   port              = "443"

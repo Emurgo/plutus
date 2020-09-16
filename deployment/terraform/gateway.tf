@@ -147,6 +147,36 @@ resource "aws_api_gateway_integration" "proxy" {
   }
 }
 
+# runghc proxy
+resource "aws_api_gateway_resource" "runghc" {
+  depends_on = [
+    aws_api_gateway_resource.api,
+  ]
+   rest_api_id = aws_api_gateway_rest_api.marlowe_symbolic_lambda.id
+   parent_id   = aws_api_gateway_rest_api.marlowe_symbolic_lambda.root_resource_id
+   path_part   = "runghc"
+}
+
+resource "aws_api_gateway_method" "runghc" {
+   rest_api_id   = aws_api_gateway_rest_api.marlowe_symbolic_lambda.id
+   resource_id   = aws_api_gateway_resource.runghc.id
+   http_method   = "POST"
+   authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "runghc" {
+  rest_api_id = aws_api_gateway_rest_api.marlowe_symbolic_lambda.id
+  resource_id = aws_api_gateway_method.runghc.resource_id
+  http_method = aws_api_gateway_method.runghc.http_method
+
+  integration_http_method = "POST"
+  type                    = "HTTP_PROXY"
+  uri                     = "http://${aws_alb.plutus.dns_name}/runghc"
+
+  request_parameters = {
+  }
+}
+
 resource "aws_route53_record" "lambda" {
   name    = local.marlowe_domain_name
   type    = "A"
