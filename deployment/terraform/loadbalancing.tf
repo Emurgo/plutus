@@ -351,17 +351,17 @@ resource "aws_alb_target_group_attachment" "webghc_b" {
 }
 
 ## Route 53 for Marlowe
-resource "aws_route53_record" "marlowe_alb" {
-  zone_id = var.marlowe_public_zone
-  name    = local.marlowe_domain_name
-  type    = "A"
+# resource "aws_route53_record" "marlowe_alb" {
+#   zone_id = var.marlowe_public_zone
+#   name    = local.marlowe_domain_name
+#   type    = "A"
 
-  alias {
-    name                   = aws_alb.plutus.dns_name
-    zone_id                = aws_alb.plutus.zone_id
-    evaluate_target_health = true
-  }
-}
+#   alias {
+#     name                   = aws_alb.plutus.dns_name
+#     zone_id                = aws_alb.plutus.zone_id
+#     evaluate_target_health = true
+#   }
+# }
 
 # Monitoring
 resource "aws_alb_target_group" "monitoring" {

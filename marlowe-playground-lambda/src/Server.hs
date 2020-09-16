@@ -72,6 +72,7 @@ data AppConfig = AppConfig {authConfig :: Auth.Config}
 
 initializeContext :: IO AppConfig
 initializeContext = do
+  putStrLn "Initializing Context"
   githubClientId <- Text.pack <$> getEnv "GITHUB_CLIENT_ID"
   githubClientSecret <- Text.pack <$> getEnv "GITHUB_CLIENT_SECRET"
   jwtSignature <- Text.pack <$> getEnv "JWT_SIGNATURE"
@@ -94,6 +95,7 @@ handler :: WaiHandler AppConfig
 handler request context = do
   -- This application config will be preserved while the Lambda is warm
   appConfig :: AppConfig <- readIORef $ customContext context
+  putStrLn $ "Found Context, running app"
 
   -- This uses Aws.Lambda.Wai from aws-lambda-haskell-runtime-wai in order to convert the Wai application to Lambda.
   waiHandler (initializeApplication appConfig) request context

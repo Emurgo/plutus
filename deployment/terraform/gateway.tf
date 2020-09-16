@@ -97,9 +97,7 @@ resource "aws_api_gateway_usage_plan" "marlowe_symbolic_lambda" {
 }
 
 resource "aws_api_gateway_domain_name" "marlowe_symbolic_lambda" {
-  # AWS certificate wildcards can only have one level so we cannot use lambda.alpha.marlowe.iohk.io
-  # we must use lambda-alpha.marlowe.iohk.io instead
-  domain_name = "lambda-${local.marlowe_domain_name}"
+  domain_name = local.marlowe_domain_name
 
   regional_certificate_arn   = "${data.aws_acm_certificate.marlowe_private.arn}"
   endpoint_configuration {
@@ -150,7 +148,7 @@ resource "aws_api_gateway_integration" "proxy" {
 }
 
 resource "aws_route53_record" "lambda" {
-  name    = "lambda-${local.marlowe_domain_name}"
+  name    = local.marlowe_domain_name
   type    = "A"
   zone_id = "${var.marlowe_public_zone}"
   alias {
