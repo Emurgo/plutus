@@ -96,7 +96,7 @@ resource "aws_lambda_function" "marlowe_playground" {
       GITHUB_CLIENT_ID = var.marlowe_github_client_id
       GITHUB_CLIENT_SECRET = var.marlowe_github_client_secret
       JWT_SIGNATURE = var.marlowe_jwt_signature
-      GITHUB_REDIRECT_URL = "${var.env}.${var.marlowe_tld}"
+      GITHUB_REDIRECT_URL = "https://${var.env}.${var.marlowe_tld}"
     }
   }
 }
