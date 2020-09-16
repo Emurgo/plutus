@@ -181,3 +181,9 @@ variable "playground_lambda_file" {
 
 variable "marlowe_github_client_id" {
 }
+
+variable "marlowe_github_client_secret" {
+}
+
+variable "marlowe_jwt_signature" {
+}

@@ -53,6 +53,8 @@ let
       ln -s ${terraform-vars env region}/* $tmp_dir
       cd $tmp_dir
       export TF_VAR_marlowe_github_client_id=$(pass ${env}/marlowe/githubClientId)
+      export TF_VAR_marlowe_github_client_secret=$(pass ${env}/marlowe/githubClientSecret)
+      export TF_VAR_marlowe_jwt_signature=$(pass ${env}/marlowe/jwtSignature)
       ${terraform}/bin/terraform init
       ${terraform}/bin/terraform workspace select ${env}
       ${terraform}/bin/terraform apply -var-file=${env}.tfvars
@@ -79,6 +81,8 @@ let
 
       echo "apply terraform"
       export TF_VAR_marlowe_github_client_id=$(pass ${env}/marlowe/githubClientId)
+      export TF_VAR_marlowe_github_client_secret=$(pass ${env}/marlowe/githubClientSecret)
+      export TF_VAR_marlowe_jwt_signature=$(pass ${env}/marlowe/jwtSignature)
       ${terraform}/bin/terraform init
       ${terraform}/bin/terraform workspace select ${env}
       ${terraform}/bin/terraform apply -var-file=${env}.tfvars
@@ -95,7 +99,7 @@ let
     '';
 
   mkEnv = env: region: {
-    inherit getCreds terraform-vars terraform-locals terraform;
+    inherit terraform-vars terraform-locals terraform;
     syncS3 = (syncS3 env);
     runTerraform = (runTerraform env region);
     deploy = (deploy env region);
@@ -105,4 +109,4 @@ let
     david = mkEnv "david" "eu-west-1";
     alpha = mkEnv "alpha" "eu-west-2";
   };
-in envs
+in envs // { inherit getCreds; }

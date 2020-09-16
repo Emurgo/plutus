@@ -94,6 +94,9 @@ resource "aws_lambda_function" "marlowe_playground" {
     variables = {
       PATH = "/usr/local/bin:/usr/bin/:/bin:/opt/bin:."
       GITHUB_CLIENT_ID = var.marlowe_github_client_id
+      GITHUB_CLIENT_SECRET = var.marlowe_github_client_secret
+      JWT_SIGNATURE = var.marlowe_jwt_signature
+      GITHUB_REDIRECT_URL = "${var.env}.${var.marlowe_tld}"
     }
   }
 }
